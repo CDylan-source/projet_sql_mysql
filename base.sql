@@ -169,3 +169,42 @@ DROP numero;
 /* Au revoir ancienne solution */
 
 /* Bonjour foreign key, si je réussi à vous utiliser */
+ALTER TABLE departements
+ADD PRIMARY KEY (numero);
+
+ALTER TABLE ACS
+ADD FOREIGN KEY (membres) REFERENCES departements(numero);
+
+ALTER TABLE ACS
+ADD CONSTRAINT FK_ACSdepartements
+FOREIGN KEY (membres) REFERENCES departements(numero);
+
+/* Pas ouf, essayons autre chose */
+/* Inner join avec conditions */
+SELECT *
+FROM ACS
+INNER JOIN departements ON 
+(CASE 
+WHEN last_name = "MILLE"
+OR last_name = "POUPENEY"
+OR last_name = "SIMMET"
+OR last_name = "DORCE"
+OR last_name = "QUARTO"
+OR last_name = "CECEN"
+OR last_name = "JUILLERAT"
+OR last_name = "PERGAUD"
+OR last_name = "GAGE"
+THEN 25
+WHEN last_name = "DHERVÉ"
+THEN 35
+WHEN last_name = "COPPI"
+THEN 06
+WHEN last_name = "POCHERON"
+THEN 39
+WHEN last_name = "MILLOT"
+THEN 07
+WHEN last_name = "CHAPUIS"
+THEN 38
+WHEN last_name = "TAHAR"
+THEN 68
+END) = numero;
